@@ -26,7 +26,9 @@ public class Spell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDra
     {
         Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(eventData.position);
         worldPosition.z = 0f;
-        Debug.Log($"Pointer up in world coordinates: {worldPosition}");
+
+        EventManager.Instance.OnCastSpell(worldPosition);
+        Destroy(gameObject);
     }
 
     public void OnDrag(PointerEventData eventData)
