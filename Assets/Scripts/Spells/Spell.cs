@@ -1,39 +1,45 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Spell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class Spell : MonoBehaviour
 {
-    private RectTransform _rectTransform;
-    private float _canvasScaleFactor;
-    private Vector2 _initialPointerPos;
-    private Vector2 _initialObjectPos;
-    private Camera _mainCamera;
+    [SerializeField] private Image _spellIcon;
+    [SerializeField] private GameObject _dmgIcon;
+    [SerializeField] private TextMeshProUGUI _dmgText;
+    private int _damage = 0;
+    private SpellScriptableObj _spellObj;
 
-    private void Awake()
+
+    public void Setup(SpellScriptableObj spellObj)
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _canvasScaleFactor = GetComponentInParent<Canvas>().scaleFactor;
-        _mainCamera = Camera.main;
+        _spellObj = spellObj;
+
+        _spellIcon.sprite = _spellObj.view;
+
+        if (_spellObj.isInstakill)
+        {
+            _dmgText.text = "KILL";
+            _dmgIcon.SetActive(false);
+        }
+        else
+        {
+            _damage = _spellObj.GetDamage();
+            _dmgText.text = _damage.ToString();
+        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnCast(Vector3 worldPosition)
     {
-        _initialPointerPos = eventData.position;
-        _initialObjectPos = _rectTransform.position;
-    }
+        if (_spellObj.isInstakill)
+        {
+            EventManager.Instance.OnCastSpell(worldPosition);
+        }
+        else
+        {
+            EventManager.Instance.OnCastSpell(worldPosition, _damage);
+        }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(eventData.position);
-        worldPosition.z = 0f;
-
-        EventManager.Instance.OnCastSpell(worldPosition);
         Destroy(gameObject);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        Vector2 pointerDelta = eventData.position - _initialPointerPos;
-        _rectTransform.position = _initialObjectPos + pointerDelta / _canvasScaleFactor;
     }
 }

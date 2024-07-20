@@ -5,7 +5,12 @@ using System.Collections;
 public class SpellsSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _spellSlots;
-    [SerializeField] private GameObject[] _spells;
+    [SerializeField] private GameObject _spellPrefab;
+    private SpellsSpawnGetter _spellsSpawnGetter;
+
+    void Awake() {
+        _spellsSpawnGetter = gameObject.GetComponent<SpellsSpawnGetter>();
+    }
 
     void Start()
     {
@@ -27,7 +32,9 @@ public class SpellsSpawner : MonoBehaviour
 
     void SpawnSpellInSlot(Transform slot)
     {
-        GameObject spell = Instantiate(GetRandomSpell(), slot);
+        GameObject spell = Instantiate(_spellPrefab, slot);
+        Spell spellComponent = spell.GetComponent<Spell>();
+        spellComponent.Setup(GetRandomSpell());
     }
 
     void SpawnSpellsWithDelay()
@@ -41,9 +48,9 @@ public class SpellsSpawner : MonoBehaviour
         SpawnSpellsInEmptySlots();
     }
 
-    GameObject GetRandomSpell()
+    SpellScriptableObj GetRandomSpell()
     {
-        return _spells.OrderBy(x => Random.value).FirstOrDefault();
+        return _spellsSpawnGetter.GetRandomSpell();
     }
 
 }

@@ -751,6 +751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221546442}
   - component: {fileID: 1221546443}
+  - component: {fileID: 1221546444}
   m_Layer: 5
   m_Name: SpellsUI
   m_TagString: Untagged
@@ -796,12 +797,26 @@ MonoBehaviour:
   - {fileID: 885831310}
   - {fileID: 2027038332}
   - {fileID: 344899936}
+  _spellPrefab: {fileID: 2647086928163559468, guid: be959279f985ad44795e5efed0990be0, type: 3}
+--- !u!114 &1221546444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221546441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6a351bea181af499c3f49a508700d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _spells:
-  - {fileID: 5577339433681928578, guid: 5e4e34cdeddfbcb408329da6995bdf16, type: 3}
-  - {fileID: 5577339433681928578, guid: ea36ec872c2b5b2489c3e21137fba7de, type: 3}
-  - {fileID: 5577339433681928578, guid: cd3fbf23fc75fa04fa2d75af4a2b5e0d, type: 3}
-  - {fileID: 5577339433681928578, guid: daa6200e56f24914aab0086716ad7e5b, type: 3}
-  - {fileID: 5577339433681928578, guid: 653463f35f27a4148ab8638187f02e26, type: 3}
+  - {fileID: 11400000, guid: ffedb6744efc6e84b884750c5d968a45, type: 2}
+  - {fileID: 11400000, guid: b079f62736e054d43a8ec964b84773ab, type: 2}
+  - {fileID: 11400000, guid: 5726dd2ae06d6564089a1278a22e919e, type: 2}
+  - {fileID: 11400000, guid: 99d482a5164ef684d959b72e4afb8eab, type: 2}
+  - {fileID: 11400000, guid: 50fb4ffb898b7c949b9a72e474eccaa2, type: 2}
+  _chances: 230000003c000000500000005f00000064000000
 --- !u!1 &1489095178
 GameObject:
   m_ObjectHideFlags: 0
