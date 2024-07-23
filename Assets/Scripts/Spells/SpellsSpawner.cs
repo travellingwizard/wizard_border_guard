@@ -34,7 +34,7 @@ public class SpellsSpawner : MonoBehaviour
     {
         GameObject spell = Instantiate(_spellPrefab, slot);
         Spell spellComponent = spell.GetComponent<Spell>();
-        spellComponent.Setup(GetRandomSpell());
+        spellComponent.Setup(_spellsSpawnGetter.GetRandom());
     }
 
     void SpawnSpellsWithDelay()
@@ -47,10 +47,4 @@ public class SpellsSpawner : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SpawnSpellsInEmptySlots();
     }
-
-    SpellScriptableObj GetRandomSpell()
-    {
-        return _spellsSpawnGetter.GetRandomSpell();
-    }
-
 }
