@@ -15,7 +15,6 @@ public class SpellsSpawner : MonoBehaviour
     void Start()
     {
         SpawnSpellsInEmptySlots();
-
         EventManager.Instance.SpellCasted += SpawnSpellsWithDelay;
     }
 

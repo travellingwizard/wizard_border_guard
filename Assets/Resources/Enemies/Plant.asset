@@ -15,5 +15,5 @@ MonoBehaviour:
   view: {fileID: 21300000, guid: fc2b56937ed965e42b29f47137065167, type: 3}
   sound: {fileID: 8300000, guid: 0ebc5ba58f5adaf4bbf12bfbde89f363, type: 3}
   possibleHp: 060000000700000008000000
-  moveSpeed: 1.5
-  moveType: 0
+  moveSpeed: 0.8
+  moveType: 2

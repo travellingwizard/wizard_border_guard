@@ -10,7 +10,7 @@ public class EnemyScriptableObj : ScriptableObject
     public AudioClip sound;
     public int[] possibleHp;
     public float moveSpeed;
-    public int moveType = 0;
+    public MovementType moveType = MovementType.Walk;
 
     public int GetHp()
     {

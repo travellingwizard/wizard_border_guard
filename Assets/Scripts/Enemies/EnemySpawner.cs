@@ -5,33 +5,50 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private float _spawnDelay;
+    [SerializeField] private float _baseSpawnDelay;
     [SerializeField] private float maxOffsetY;
+    private float _spawnDelay;
     private EnemiesSpawnGetter _enemiesSpawnGetter;
 
-    void Awake() {
+    void Awake()
+    {
         _enemiesSpawnGetter = gameObject.GetComponent<EnemiesSpawnGetter>();
     }
 
     void Start()
     {
+        UpdateMultiplier();
+        MultiplierManager.Instance.MultiplierChange += UpdateMultiplier;
+
         StartEnemiesSpawn();
     }
 
-    void StartEnemiesSpawn() {
-        StartCoroutine(SpawnEnemyWithDelay(_spawnDelay));
-    }
-
-    private IEnumerator SpawnEnemyWithDelay(float delay)
+    public void UpdateMultiplier()
     {
-        yield return new WaitForSeconds(delay);
-        SpawnEnemy();
-        StartCoroutine(SpawnEnemyWithDelay(_spawnDelay));
+        float multiplier = MultiplierManager.Instance.MultiplierValue;
+        _spawnDelay = _baseSpawnDelay / multiplier;
     }
 
-    void SpawnEnemy() {
+    void StartEnemiesSpawn()
+    {
+        SpawnEnemy();
+        StartCoroutine(SpawnEnemyWithDelay());
+    }
+
+    private IEnumerator SpawnEnemyWithDelay()
+    {
+        yield return new WaitForSeconds(_spawnDelay);
+        SpawnEnemy();
+        StartCoroutine(SpawnEnemyWithDelay());
+    }
+
+    void SpawnEnemy()
+    {
         float spawnOffsetY = Random.Range(-maxOffsetY, maxOffsetY);
-        Vector3 spawnPosition = new Vector3(0f, spawnOffsetY, 0f);
+        Vector3 spawnPosition = new Vector3(
+            transform.position.x,
+            transform.position.y + spawnOffsetY,
+            0f);
 
         GameObject enemy = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
 
