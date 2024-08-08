@@ -70,8 +70,11 @@ public class MovementSlither : MovementAbstract
         elapsedTime = 0;
         while (elapsedTime < _stepTime)
         {
-            transform.position = Vector3.Lerp(moveBackPosition, endPosition, elapsedTime / _stepTime);
-            elapsedTime += Time.deltaTime;
+            if (_isMoving)
+            {
+                transform.position = Vector3.Lerp(moveBackPosition, endPosition, elapsedTime / _stepTime);
+                elapsedTime += Time.deltaTime;
+            }
             yield return null;
         }
         transform.position = endPosition;

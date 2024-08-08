@@ -58,8 +58,11 @@ public class MovementWalk : MovementAbstract
         float elapsedTime = 0;
         while (elapsedTime < _stepTime)
         {
-            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / _stepTime);
-            elapsedTime += Time.deltaTime;
+            if (_isMoving)
+            {
+                transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / _stepTime);
+                elapsedTime += Time.deltaTime;
+            }
             yield return null;
         }
         transform.position = endPosition;

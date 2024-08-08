@@ -11,7 +11,8 @@ public abstract class MovementAbstract : MonoBehaviour, IEnemyMovement
 
     void Awake()
     {
-        _viewAnimator = GetComponentInChildren<Animator>();
+        Transform childTransform = transform.Find("View");
+        _viewAnimator = childTransform.gameObject.GetComponentInChildren<Animator>();
     }
 
     void Start() {

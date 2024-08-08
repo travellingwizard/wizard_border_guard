@@ -31,14 +31,12 @@ public class Spell : MonoBehaviour
 
     public void OnCast(Vector3 worldPosition)
     {
-        if (_spellObj.isInstakill)
-        {
-            EventManager.Instance.OnCastSpell(worldPosition);
-        }
-        else
-        {
-            EventManager.Instance.OnCastSpell(worldPosition, _damage);
-        }
+        SpellShotData shellShotData = new SpellShotData(
+            worldPosition,
+            _damage,
+            _spellObj.isInstakill
+        );
+        EventManager.Instance.OnCastSpell(shellShotData);
 
         Destroy(gameObject);
     }
